@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { Col, Container, Row } from 'reactstrap';
 import './App.css';
+import DetailsComponent from './components/DetailsComponent';
+import Header from './components/Header';
+import NameForm from './components/NameForm';
+import SideBar from './components/Sidebar';
+
+
+interface DetailsType  {
+    name: string;
+    age: number;
+    count: number; 
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [data, setData] = useState<null | DetailsType>();
+    return (
+        <div className="app">
+        <Header />
+        <Container fluid className="app-container">
+            <Row>
+                <Col sm={9}>
+                    <NameForm setData={setData} />
+                    {data && <DetailsComponent data={data} />}
+                </Col>
+                <Col sm={2} >
+                    {data && <SideBar/>}
+                </Col>
+            </Row>
+        </Container>
+        </div>
+    );
 }
 
 export default App;
